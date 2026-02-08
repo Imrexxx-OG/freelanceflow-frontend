@@ -7,7 +7,6 @@ const api = axios.create({
 });
 
 // Add token to requests automatically
-
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -18,6 +17,4 @@ api.interceptors.request.use((config) => {
 
 export default api;
 
-// Example .env file content:
-
-VITE_API_URL=freelanceflow-backend-production.up.railway.app
+// VITE_API_URL=https://freelanceflow-backend-production.up.railway.app/api
