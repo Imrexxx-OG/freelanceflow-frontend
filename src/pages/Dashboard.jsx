@@ -80,6 +80,51 @@ export default function Dashboard() {
 
           {error && <ErrorMessage message={error} onRetry={fetchAnalytics} />}
 
+          {/* Onboarding Banner for New Users */}
+          {summary && summary.totalClients === 0 && (
+            <div style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              borderRadius: '16px',
+              padding: '2.5rem',
+              marginBottom: '2rem',
+              color: 'white',
+              boxShadow: '0 10px 40px rgba(102, 126, 234, 0.3)'
+            }}>
+              <div style={{ maxWidth: '600px' }}>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>
+                  🎉 Welcome to FreelanceFlow!
+                </h2>
+                <p style={{ marginBottom: '1.5rem', fontSize: '1.05rem', opacity: 0.95, lineHeight: '1.6' }}>
+                  Let's get you started! First, add a client to your dashboard. Once you have clients, you'll be able to create invoices and track payments.
+                </p>
+                <button
+                  onClick={() => navigate('/clients')}
+                  style={{
+                    padding: '0.875rem 1.75rem',
+                    background: 'white',
+                    color: '#667eea',
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontWeight: '600',
+                    fontSize: '1rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                >
+                  Add Your First Client →
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Stats Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
             <StatCard
@@ -114,7 +159,9 @@ export default function Dashboard() {
               <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#1f2937' }}>
                 Recent Invoices
               </h2>
-              <button style={{ padding: '0.75rem 1.5rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', transition: 'transform 0.2s' }}
+              <button 
+                onClick={() => navigate('/invoices')}
+                style={{ padding: '0.75rem 1.5rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', transition: 'transform 0.2s' }}
                 onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}>
                 View All
@@ -137,7 +184,8 @@ export default function Dashboard() {
                     {recentInvoices.map((invoice) => (
                       <tr key={invoice.id} style={{ borderBottom: '1px solid #f3f4f6', cursor: 'pointer' }}
                         onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                        onClick={() => navigate(`/invoices/${invoice.id}`)}>
                         <td style={{ padding: '1rem', fontWeight: '500' }}>{invoice.invoiceNumber}</td>
                         <td style={{ padding: '1rem', color: '#374151' }}>{invoice.client.name}</td>
                         <td style={{ padding: '1rem', fontWeight: '600' }}>{invoice.currency} {invoice.total.toFixed(2)}</td>
@@ -157,8 +205,8 @@ export default function Dashboard() {
                 icon="📄"
                 title="No invoices yet"
                 description="Create your first invoice to start tracking payments and managing your freelance business."
-                actionLabel="Create Your First Invoice"
-                onAction={() => navigate('/invoices/create')}
+                actionLabel={summary?.totalClients > 0 ? "Create Your First Invoice" : undefined}
+                onAction={summary?.totalClients > 0 ? () => navigate('/invoices/create') : undefined}
               />
             )}
           </div>
