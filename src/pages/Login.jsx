@@ -19,7 +19,12 @@ export default function Login() {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      if (err.code === 'ECONNABORTED' || !err.response) {
+    setError('Backend is waking up... Please wait 30 seconds and try again.');
+  } else {
+    setError(err.response?.data?.message || 'Login failed');
+  }
+
     } finally {
       setLoading(false);
     }

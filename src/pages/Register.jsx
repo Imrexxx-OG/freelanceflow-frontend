@@ -20,7 +20,11 @@ export default function Register() {
       await register(name, email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      if (err.code === 'ECONNABORTED' || !err.response) {
+        setError('Backend is waking up... Please wait 30 seconds and try again.');
+      } else {
+        setError(err.response?.data?.message || 'Registration failed');
+      }
     } finally {
       setLoading(false);
     }
