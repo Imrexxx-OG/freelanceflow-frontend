@@ -20,27 +20,54 @@ export default function Navbar() {
       boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
       position: 'sticky',
       top: 0,
-      zIndex: 50
+      zIndex: 50,
+      width: '100%',
+      maxWidth: '100vw',
+      overflowX: 'hidden'
     }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '72px' }}>
+      <div style={{ 
+        maxWidth: '1280px', 
+        margin: '0 auto', 
+        padding: '0 1rem',
+        width: '100%'
+      }}>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          minHeight: '72px',
+          gap: '1rem',
+          flexWrap: 'wrap',
+          padding: '0.5rem 0'
+        }}>
           
           {/* Logo & Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '1.5rem',
+            flexWrap: 'wrap',
+            minWidth: '0'
+          }}>
             <Link to="/dashboard" style={{ textDecoration: 'none' }}>
               <h1 style={{ 
-                fontSize: '1.75rem', 
+                fontSize: '1.5rem', 
                 fontWeight: 'bold', 
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                backgroundClip: 'text',
+                whiteSpace: 'nowrap'
               }}>
                 FreelanceFlow
               </h1>
             </Link>
             
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '0.5rem',
+              flexWrap: 'wrap'
+            }}>
               <NavLink to="/dashboard" isActive={isActive('/dashboard')}>
                 Dashboard
               </NavLink>
@@ -54,18 +81,24 @@ export default function Navbar() {
           </div>
 
           {/* User Info & Logout */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '0.75rem',
+            flexWrap: 'wrap'
+          }}>
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '0.75rem',
-              padding: '0.5rem 1rem',
+              gap: '0.5rem',
+              padding: '0.5rem 0.75rem',
               background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-              borderRadius: '9999px'
+              borderRadius: '9999px',
+              minWidth: '0'
             }}>
               <div style={{
-                width: '36px',
-                height: '36px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '50%',
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 display: 'flex',
@@ -73,11 +106,20 @@ export default function Navbar() {
                 justifyContent: 'center',
                 color: 'white',
                 fontWeight: 'bold',
-                fontSize: '1rem'
+                fontSize: '0.9rem',
+                flexShrink: 0
               }}>
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
-              <span style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>
+              <span style={{ 
+                color: '#374151', 
+                fontWeight: '500', 
+                fontSize: '0.9rem',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '120px'
+              }}>
                 {user?.name}
               </span>
             </div>
@@ -87,13 +129,15 @@ export default function Navbar() {
               style={{ 
                 background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                 color: 'white', 
-                padding: '0.625rem 1.5rem', 
+                padding: '0.625rem 1.25rem', 
                 borderRadius: '8px',
                 border: 'none',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                fontSize: '0.95rem'
+                fontSize: '0.9rem',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
               }}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'translateY(-2px)';
@@ -120,12 +164,13 @@ function NavLink({ to, isActive, children }) {
       style={{
         textDecoration: 'none',
         color: isActive ? '#667eea' : '#6b7280',
-        padding: '0.625rem 1rem',
+        padding: '0.5rem 0.875rem',
         borderRadius: '8px',
         fontWeight: isActive ? '600' : '500',
         transition: 'all 0.2s ease',
         background: isActive ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' : 'transparent',
-        fontSize: '0.95rem'
+        fontSize: '0.875rem',
+        whiteSpace: 'nowrap'
       }}
       onMouseEnter={(e) => {
         if (!isActive) {
