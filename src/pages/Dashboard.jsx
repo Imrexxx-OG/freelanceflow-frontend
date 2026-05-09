@@ -40,7 +40,7 @@ export default function Dashboard() {
               <div style={{ height: '24px', background: '#e5e7eb', borderRadius: '4px', width: '400px', animation: 'pulse 2s infinite' }}></div>
             </div>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: '1.5rem', marginBottom: '2rem', width: '100%' }}>
               <StatCardSkeleton />
               <StatCardSkeleton />
               <StatCardSkeleton />
@@ -126,7 +126,7 @@ export default function Dashboard() {
           )}
 
           {/* Stats Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: '1.5rem', marginBottom: '2rem', width: '100%' }}>
             <StatCard
               title="Total Clients"
               value={summary?.totalClients || 0}
